@@ -1,14 +1,14 @@
-
 import { createBrowserRouter, RouterProvider } from "react-router";
 import LandingPage from "../pages/LandingPage/LandingPage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import HomePage from "../pages/HomePage/HomePage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import RegisterPage from "../pages/RegisterPage/RegisterPage";
+import ProtectedRoute from "./ProtectedRoute"; // Importa el componente ProtectedRoute
 
 const router = createBrowserRouter([
   {
-    path: "",
+    path: "/",
     element: <LandingPage />,
   },
   {
@@ -17,17 +17,17 @@ const router = createBrowserRouter([
     errorElement: <LoginPage />,
   },
   {
+    path: "/register",
+    element: <RegisterPage />,
+  },
+  {
     path: "/home",
-    element: <HomePage />,
+    element: <ProtectedRoute element={<HomePage />} />, // Ruta protegida
     errorElement: <HomePage />,
   },
   {
-    path: "/profile", // Ruta para la ProfilePage
-    element: <ProfilePage />,
-  },
-  {
-    path: "/register", // Ruta para la ProfilePage
-    element: <RegisterPage />,
+    path: "/profile",
+    element: <ProtectedRoute element={<ProfilePage />} />, // Ruta protegida
   },
 ]);
 

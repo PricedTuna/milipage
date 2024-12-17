@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "newdev": "nodemon --exec ts-node ./src/main.tsx"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -15,6 +16,8 @@
     "@fontsource/roboto": "^5.1.0",
     "@mui/icons-material": "^6.2.0",
     "@mui/material": "^6.2.0",
+    "firebase": "^11.1.0",
+    "jspdf": "^2.5.2",
     "next-themes": "^0.4.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
