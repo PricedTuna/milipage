@@ -5,13 +5,13 @@ import { User } from "../domain/models/User";
 
 export const saveUser = async (data: User) => {
   try {
-    const userRef = await addDoc(collection(db, "users"), data)
+    const userRef = await addDoc(collection(db, "users"), data);
     console.log("Documento guardado con ID:", userRef.id);
-    return userRef
+    return userRef;
   } catch (error) {
     console.error("Error al guardar documento:", error);
   }
-}
+};
 
 export const loginUser = async (numeroCuenta: string, password: string) => {
   try {

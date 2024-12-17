@@ -32,7 +32,15 @@ const RegisterPage = () => {
     carrera: "",
     numeroCuenta: "",
     fechaNacimiento: "",
-    password: ""
+    password: "",
+    topicosEnfermeria: {
+      "Enfermería laboral": 0,
+      "Enfermería basada en la evidencia": 0,
+      "Gestión y calidad de los servicios de enfermería": 0,
+      "Emprendedurismo y responsabilidad social": 0,
+      "Proyectos de investigación en enfermería": 0,
+      "Enfermería en desastres y emergencias sanitarias": 0,
+    },
   });
 
   const navigate = useNavigate();
@@ -49,12 +57,30 @@ const RegisterPage = () => {
     }));
   };
 
+  const getRandomGrade = () => {
+    return Math.floor(Math.random() * 6) + 5; // Valor aleatorio entre 5 y 10
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formData); // Aquí puedes manejar los datos, por ejemplo enviarlos a un backend
-    const user = await saveUser(formData);
-    if (user) navigate("/home");
-    else console.error("aaaaaaa") // !
+
+    // Asignamos valores aleatorios a los tópicos de enfermería
+    const updatedFormData = {
+      ...formData,
+      topicosEnfermeria: {
+        "Enfermería laboral": getRandomGrade(),
+        "Enfermería basada en la evidencia": getRandomGrade(),
+        "Gestión y calidad de los servicios de enfermería": getRandomGrade(),
+        "Emprendedurismo y responsabilidad social": getRandomGrade(),
+        "Proyectos de investigación en enfermería": getRandomGrade(),
+        "Enfermería en desastres y emergencias sanitarias": getRandomGrade(),
+      },
+    };
+
+    console.log(updatedFormData); // Verifica los datos antes de guardarlos
+    const user = await saveUser(updatedFormData);
+    if (user) navigate("/login");
+    else console.error("Error al guardar el usuario");
   };
 
   return (
@@ -175,8 +201,6 @@ const RegisterPage = () => {
               variant="contained"
               color="primary"
               fullWidth
-              // component={Link}
-              // to="/home"
             >
               Registrar
             </Button>

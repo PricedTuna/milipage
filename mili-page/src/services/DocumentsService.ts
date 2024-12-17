@@ -1,6 +1,6 @@
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../DB/firebaseConfig";
-import { documentRequest } from "../domain/models/documentRequest";
+import { DocumentRequest } from "../domain/models/DocumentReques";
 
 export const getUserRequests = async (usuarioRequest: string) => {
   try {
@@ -33,7 +33,7 @@ export const getUserRequests = async (usuarioRequest: string) => {
 };
 
 
-export const requestDocument = async (data: documentRequest) => {
+export const requestDocument = async (data: DocumentRequest) => {
   try {
     const requestRef = await addDoc(collection(db, "requests"), data)
     console.log("Documento guardado con ID:", requestRef.id);

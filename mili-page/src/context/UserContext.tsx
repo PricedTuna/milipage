@@ -8,6 +8,7 @@ interface User {
   carrera: string;
   numeroCuenta: string;
   fechaNacimiento: string;
+  topicosEnfermeria: Record<string, number>;  // Tópicos de enfermería con una calificación de 5 a 10
 }
 
 // Estado inicial

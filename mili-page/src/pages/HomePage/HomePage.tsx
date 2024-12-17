@@ -23,12 +23,10 @@ const HomePage = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false); // Estado para controlar la visibilidad del Snackbar
   const [snackbarMessage, setSnackbarMessage] = useState(""); // Estado para el mensaje del Snackbar
   const [requests, setRequests] = useState<any[]>([]); // Estado para almacenar las solicitudes del usuario
-  const [loading, setLoading] = useState(true);
 
   const fetchRequests = async () => {
     const requestsData = await getUserRequests(user?.numeroCuenta??'');
     setRequests(requestsData);
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -39,10 +37,11 @@ const HomePage = () => {
   // Función para generar y descargar el PDF del Kardex
   const generateKardexPDF = () => {
     const doc = new jsPDF();
-
+  
     // Agregar contenido al PDF
     doc.setFontSize(16);
     doc.text("Kardex Académico", 20, 20);
+  
     doc.setFontSize(12);
     doc.text(
       `Nombre: ${user?.nombres} ${user?.apellidoPaterno} ${user?.apellidoMaterno}`,
@@ -52,10 +51,22 @@ const HomePage = () => {
     doc.text(`Carrera: ${user?.carrera}`, 20, 50);
     doc.text(`Número de cuenta: ${user?.numeroCuenta}`, 20, 60);
     doc.text(`Fecha de nacimiento: ${user?.fechaNacimiento}`, 20, 70);
-
+  
+    // Agregar Tópicos de Enfermería
+    const topicos = user?.topicosEnfermeria;
+    if (topicos) {
+      doc.text("Calificacion semestral:", 20, 85);
+      let yOffset = 95;
+      for (const [topic, grade] of Object.entries(topicos)) {
+        doc.text(`${topic}: ${grade}`, 20, yOffset);
+        yOffset += 10;
+      }
+    }
+  
     // Descargar el PDF
     doc.save("kardex.pdf");
   };
+  
 
   // Función para mostrar la alerta de la constancia
   const handleSolicitarDocumento = async (document: string) => {
